@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz app</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Quiz app</h2>
+        <form id="quizForm">
+            <div class="question-card">
+                <div class="question-text">1. What is the capital of India?</div>
+                <div class="options-group">
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="del">
+                        <span>New Delhi</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="mum">
+                        <span>Mumbai</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="kol">
+                        <span>Kolkata</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q1" value="pun">
+                        <span>Punjab</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">2. Which language is used for web Development?</div>
+                <div class="options-group">
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="py">
+                        <span>Python</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="R">
+                        <span>R</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="JS">
+                        <span>JavaScript</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q2" value="cpp">
+                        <span>C++</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">3. What is the default method attribute in a form?</div>
+                <div class="options-group">
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="post">
+                        <span>Post</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="get">
+                        <span>Get</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="submit">
+                        <span>Submit</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q3" value="request">
+                        <span>Request</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">4. Which input type is used to create a checkbox in an HTML form?</div>
+                <div class="options-group">
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="text">
+                        <span>Text</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="pass">
+                        <span>Password</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="checkbox">
+                        <span>Checkbox</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q4" value="radio">
+                        <span>Radio</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text">5. Which input type is used to create a dropdown list in an HTML form?</div>
+                <div class="options-group">
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="pass">
+                        <span>Password</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="range">
+                        <span>Range</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="select">
+                        <span>Select</span>
+                    </label>
+                    <label class="option-label">
+                        <input type="radio" name="q5" value="text">
+                        <span>Text</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit">Submit Quiz</button>
+        </form>
+    </div>
+</body>
+<script>
+    const correctAns = {
+        q1: "del",
+        q2: "JS",
+        q3: "get",
+        q4: "checkbox",
+        q5: "select"
+    };
+
+    const quizForm = document.getElementById('quizForm');
+
+    // Create result element if it doesn't exist (it was removed in previous refactor)
+    let result = document.getElementById('result');
+    if (!result) {
+        result = document.createElement('div');
+        result.id = 'result';
+        quizForm.after(result);
+    }
+
+    quizForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        let score = 0;
+        let count = Object.keys(correctAns).length;
+        let unanswerd = 0;
+
+        for (let key in correctAns) {
+            const selected = document.querySelector(`input[name=${key}]:checked`);
+
+            if (selected) {
+                if (selected.value === correctAns[key]) {
+                    score++;
+                }
+            } else {
+                unanswerd++;
+            }
+        }
+
+        if (unanswerd > 0) {
+            if (!confirm(`You have left ${unanswerd} questions unanswered. Do you want to submit anyway?`)) {
+                return;
+            }
+        }
+
+        result.textContent = `Your Score: ${score} / ${count}`;
+
+        // Color coding based on score
+        if (score === count) {
+            result.style.color = "#166534"; // Green
+            result.style.backgroundColor = "#dcfce7";
+            result.style.borderColor = "#bbf7d0";
+        } else if (score >= count / 2) {
+            result.style.color = "#854d0e"; // Yellow/Orange
+            result.style.backgroundColor = "#fef9c3";
+            result.style.borderColor = "#fde047";
+        } else {
+            result.style.color = "#991b1b"; // Red
+            result.style.backgroundColor = "#fee2e2";
+            result.style.borderColor = "#fecaca";
+        }
+    });
+</script>
+
+</html>

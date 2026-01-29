@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-body: #f3f4f6;
+    --bg-card: #ffffff;
+    --text-main: #1f2937;
+    --text-secondary: #4b5563;
+    --border: #e5e7eb;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --option-bg: #f9fafb;
+    --option-hover: #f3f4f6;
+    --option-selected: #eef2ff;
+    --option-border-selected: #4f46e5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.5;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    margin-top: 20px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 30px;
+}
+
+.question-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.question-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.question-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-main);
+}
+
+.options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: var(--option-bg);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.option-label:hover {
+    background-color: var(--option-hover);
+    border-color: #d1d5db;
+}
+
+.option-label input[type="radio"] {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
+}
+
+/* Style for when radio is checked - using :has if supported, or just reliance on standard input styling */
+.option-label:has(input:checked) {
+    background-color: var(--option-selected);
+    border-color: var(--option-border-selected);
+    color: var(--primary);
+    font-weight: 500;
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background-color: var(--primary);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.4);
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+#result {
+    text-align: center;
+    background: #dcfce7;
+    color: #166534;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #bbf7d0;
+    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#result:not(:empty) {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .question-card {
+        padding: 16px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
